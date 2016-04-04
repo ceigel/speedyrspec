@@ -11,15 +11,20 @@ offer coverage for a particular file.
 
 ## Install
 
-```ruby gem 'speedyrspec' ```
+```ruby
+gem 'speedyrspec'
+```
 
 ## Configuration
 
 Set path for the trace_file. This is where SpeedyRspec stores its dependency
 graph.
 
-```ruby speedyrspec.configure do |config| config.trace_file =
-'speedy_traces.json' end ```
+```ruby
+speedyrspec.configure do |config|
+  config.trace_file = 'speedy_traces.json'
+end
+```
 
 ## Usage
 
@@ -29,15 +34,21 @@ following steps shouldbe followed.
 1. Compute dependency graph. This stores in the trace_file the dependency list
    of each file. This process is best repeated weekly.
 
-```bash rake speedyrspec:collect ```
+  ```bash
+  rake speedyrspec:collect
+  ```
 
 2. Run tests for the changed files.
 
   2.1 Tests for app files.
 
-  ```bash rake speedyrspec:run <app/files> ```
+  ```bash
+  rake speedyrspec:run <app/files>
+  ```
 
   2.2. Tests from git changes. Load list of changed files and compute which
   tests to run.
 
-  ```bash rake speedyrspec:run:git ```
+  ```bash
+  rake speedyrspec:run:git
+  ```
