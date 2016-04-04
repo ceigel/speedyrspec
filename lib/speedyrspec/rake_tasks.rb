@@ -10,7 +10,7 @@ end
 
 def set_files_to_run(t, files_to_test)
   t.pattern = 'deliberately-left-blank'
-  t.rspec_opts = SpeedyTest::Resolver.new.get_tests(files_to_test)
+  t.rspec_opts = speedyrspec::Resolver.new.get_tests(files_to_test)
 end
 
 def files_from_args(args)
@@ -24,7 +24,7 @@ def show_files_to_run(files)
 end
 
 desc 'run tests and collect trace information'
-RSpec::Core::RakeTask.new('speedytest:collect') do |t, args|
+RSpec::Core::RakeTask.new('speedyrspec:collect') do |t, args|
   t.rspec_opts ||= []
   specfiles = ARGV.drop(1)
 
@@ -33,11 +33,11 @@ RSpec::Core::RakeTask.new('speedytest:collect') do |t, args|
     t.pattern = 'deliberately-left-blank'
   end
 
-  t.rspec_opts << '--require speedytest/rspec_config'
+  t.rspec_opts << '--require speedyrspec/rspec_config'
 end
 
 desc 'run tests that exercise specific code'
-RSpec::Core::RakeTask.new('speedytest:run', :files) do |t, args|
+RSpec::Core::RakeTask.new('speedyrspec:run', :files) do |t, args|
   binding.pry
   files_to_test = files_from_args(args)
   set_files_to_run(t, files_to_test)
@@ -45,21 +45,21 @@ end
 
 
 desc 'run tests that exercise modiffied git files.'
-RSpec::Core::RakeTask.new('speedytest:run:git') do |t, args|
+RSpec::Core::RakeTask.new('speedyrspec:run:git') do |t, args|
   files_to_test = git_modified_files
   set_files_to_run(t, files_to_test)
 end
 
 desc 'show which files will be run for given files.'
-task 'speedytest:show' do |t, args|
+task 'speedyrspec:show' do |t, args|
   files_to_test = files_from_args(args)
-  testFiles = SpeedyTest::Resolver.new.get_tests(files_to_test)
+  testFiles = speedyrspec::Resolver.new.get_tests(files_to_test)
   show_files_to_run(testFiles)
 end
 
 desc 'show which files will be run for modffied git files.'
-task 'speedytest:show:git' do |t, args|
+task 'speedyrspec:show:git' do |t, args|
   files_to_test = git_modified_files
-  testFiles = SpeedyTest::Resolver.new.get_tests(files_to_test)
+  testFiles = speedyrspec::Resolver.new.get_tests(files_to_test)
   show_files_to_run(testFiles)
 end

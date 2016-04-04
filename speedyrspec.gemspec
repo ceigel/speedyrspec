@@ -1,11 +1,11 @@
-require_relative 'lib/speedytest/version'
+require_relative 'lib/speedyrspec/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'speedytest'
-  s.version     = SpeedyTest::VERSION
+  s.name        = 'speedyrspec'
+  s.version     = SpeedyRspec::VERSION
   s.date        = '2016-01-28'
-  s.summary     = "SpeedyTest"
-  s.description = "A gem for computing which rspec tests to run for a change"
+  s.summary     = 'Compute the minimum set of tests exercising certain files'
+  s.description = 'Compute the dependency list in a certain project and use this information for computing the minimum list of tests to run for a change.'
   s.authors     = ["Cristian Eigel"]
   s.email       = 'eigelc@gmail.com'
   s.files       =  Dir['{lib,spec}/**/*.rb'] + ['README.md', 'Rakefile']
