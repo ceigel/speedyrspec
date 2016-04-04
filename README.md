@@ -21,7 +21,7 @@ Set path for the trace_file. This is where SpeedyRspec stores its dependency
 graph.
 
 ```ruby
-speedyrspec.configure do |config|
+SpeedyRspec.configure do |config|
   config.trace_file = 'speedy_traces.json'
 end
 ```
