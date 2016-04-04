@@ -1,7 +1,7 @@
 require_relative 'spies'
 require 'rspec'
 
-module SpeedyTest
+module SpeedyRspec
   def self.spy
     @spy ||= TracingSpy.new
     # @spy ||= DummySpy.new
@@ -10,18 +10,18 @@ end
 
 RSpec.configure do |config|
   config.before(:suite) do
-    SpeedyTest.spy.start
+    SpeedyRspec.spy.start
   end
 
   config.after(:suite) do
-    SpeedyTest.spy.finish
+    SpeedyRspec.spy.finish
   end
 
   config.before(:each) do |example|
-    SpeedyTest.spy.test_starts(example)
+    SpeedyRspec.spy.test_starts(example)
   end
 
   config.after(:each) do |example|
-    SpeedyTest.spy.test_ends(example)
+    SpeedyRspec.spy.test_ends(example)
   end
 end

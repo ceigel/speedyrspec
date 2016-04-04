@@ -1,4 +1,4 @@
-module SpeedyTest
+module SpeedyRspec
   # A spy with no functionality
   class DummySpy
     def start
@@ -18,7 +18,7 @@ module SpeedyTest
     end
 
     def finish
-      File.write(SpeedyTest.trace_file, @dependency.to_json)
+      File.write(SpeedyRspec.trace_file, @dependency.to_json)
     end
 
     def test_starts(example)

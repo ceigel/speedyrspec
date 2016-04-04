@@ -1,8 +1,8 @@
-module SpeedyTest
+module SpeedyRspec
   class Resolver
     def initialize
-      raise "Trace file '#{SpeedyTest.trace_file}' doesn't exist. Have you run rake speedytest:collect?" unless File.exists?(SpeedyTest.trace_file)
-      traces = File.read(SpeedyTest.trace_file)
+      raise "Trace file '#{SpeedyRspec.trace_file}' doesn't exist. Have you run rake speedyrspec:collect?" unless File.exists?(SpeedyRspec.trace_file)
+      traces = File.read(SpeedyRspec.trace_file)
       @dependencies = JSON.parse(traces)
     end
 
