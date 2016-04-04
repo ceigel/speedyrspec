@@ -4,7 +4,6 @@ require 'rspec'
 module SpeedyRspec
   def self.spy
     @spy ||= TracingSpy.new
-    # @spy ||= DummySpy.new
   end
 end
 

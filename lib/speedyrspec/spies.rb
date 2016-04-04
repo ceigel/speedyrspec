@@ -1,24 +1,13 @@
 module SpeedyRspec
-  # A spy with no functionality
-  class DummySpy
-    def start
-      puts 'Starting with DummySpy'
-    end
-
-    def finish; end
-    def test_starts(_); end
-    def test_ends(_); end
-  end
-
   class TracingSpy
     def start
-      puts 'Starting test suite with tracing enabled'
+      puts 'Starting test suite with tracing enabled.'
       @tracer = set_tracer
       @dependency = Hash.new{|h, k| h[k] = Set.new}
     end
 
     def finish
-      File.write(SpeedyRspec.trace_file, @dependency.to_json)
+      File.write(SpeedyRspec.trace_file, to_json)
     end
 
     def test_starts(example)
@@ -29,6 +18,10 @@ module SpeedyRspec
 
     def test_ends(example)
       @tracer.disable
+    end
+
+    def to_json
+      JSON.pretty_generate(@dependency.map{|k,v| [k, Array(v)]}.to_h)
     end
 
     private

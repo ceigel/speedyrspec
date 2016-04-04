@@ -29,7 +29,7 @@ end
 ## Usage
 
 In order to compute the smallest amount of tests needed to be run, the
-following steps shouldbe followed.
+following steps should be followed.
 
 1. Compute dependency graph. This stores in the trace_file the dependency list
    of each file. This process is best repeated weekly.
