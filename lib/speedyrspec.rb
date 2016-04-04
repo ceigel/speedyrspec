@@ -11,5 +11,5 @@ module SpeedyRspec
 end
 
 SpeedyRspec.configure do |config|
-  config.trace_file = 'speedy_traces.json'
+  config.trace_file ||= 'speedy_traces.json'
 end

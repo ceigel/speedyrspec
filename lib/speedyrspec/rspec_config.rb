@@ -1,11 +1,6 @@
+require 'speedyrspec'
 require_relative 'spies'
 require 'rspec'
-
-module SpeedyRspec
-  def self.spy
-    @spy ||= TracingSpy.new
-  end
-end
 
 RSpec.configure do |config|
   config.before(:suite) do

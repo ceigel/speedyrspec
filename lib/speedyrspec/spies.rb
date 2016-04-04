@@ -1,4 +1,8 @@
 module SpeedyRspec
+  def self.spy
+    @spy ||= TracingSpy.new
+  end
+
   class TracingSpy
     def start
       puts 'Starting test suite with tracing enabled.'
