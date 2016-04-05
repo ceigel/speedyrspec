@@ -10,7 +10,7 @@ end
 
 def set_files_to_run(t, files_to_test)
   t.pattern = 'deliberately-left-blank'
-  t.rspec_opts = speedyrspec::Resolver.new.get_tests(files_to_test)
+  t.rspec_opts = SpeedyRspec::Resolver.new.get_tests(files_to_test)
 end
 
 def files_from_args(args)
@@ -19,7 +19,8 @@ def files_from_args(args)
   end
 end
 
-def show_files_to_run(files)
+def show_files_to_run(files_to_test)
+  files = SpeedyRspec::Resolver.new.get_tests(files_to_test)
   puts "Files to run: \n\t#{files.join("\n\t")}"
 end
 
@@ -38,7 +39,6 @@ end
 
 desc 'run tests that exercise specific code'
 RSpec::Core::RakeTask.new('speedyrspec:run', :files) do |t, args|
-  binding.pry
   files_to_test = files_from_args(args)
   set_files_to_run(t, files_to_test)
 end
@@ -53,13 +53,11 @@ end
 desc 'show which files will be run for given files.'
 task 'speedyrspec:show' do |t, args|
   files_to_test = files_from_args(args)
-  testFiles = speedyrspec::Resolver.new.get_tests(files_to_test)
-  show_files_to_run(testFiles)
+  show_files_to_run(files_to_test)
 end
 
 desc 'show which files will be run for modffied git files.'
 task 'speedyrspec:show:git' do |t, args|
   files_to_test = git_modified_files
-  testFiles = speedyrspec::Resolver.new.get_tests(files_to_test)
-  show_files_to_run(testFiles)
+  show_files_to_run(files_to_test)
 end

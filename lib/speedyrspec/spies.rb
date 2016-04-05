@@ -1,4 +1,3 @@
-require_relative 'data_manager'
 module SpeedyRspec
   def self.spy
     @spy ||= TracingSpy.new
@@ -6,7 +5,7 @@ module SpeedyRspec
 
   class TracingSpy
     def initialize
-      @datamanager = DataManagerFactory.create_manager
+      @datamanager = DependencyManagerFactory.new_dependencies
     end
 
     def start

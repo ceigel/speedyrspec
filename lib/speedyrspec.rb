@@ -1,5 +1,6 @@
 require_relative 'speedyrspec/rake_tasks'
 require_relative 'speedyrspec/resolver'
+require_relative 'speedyrspec/dependency_manager'
 
 module SpeedyRspec
   class << self
