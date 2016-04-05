@@ -1,17 +1,21 @@
+require_relative 'data_manager'
 module SpeedyRspec
   def self.spy
     @spy ||= TracingSpy.new
   end
 
   class TracingSpy
+    def initialize
+      @datamanager = DataManagerFactory.create_manager
+    end
+
     def start
       puts 'Starting test suite with tracing enabled.'
       @tracer = set_tracer
-      @dependency = Hash.new{|h, k| h[k] = Set.new}
     end
 
     def finish
-      File.write(SpeedyRspec.trace_file, to_json)
+      @datamanager.finish
     end
 
     def test_starts(example)
@@ -22,10 +26,6 @@ module SpeedyRspec
 
     def test_ends(example)
       @tracer.disable
-    end
-
-    def to_json
-      JSON.pretty_generate(@dependency.map{|k,v| [k, Array(v)]}.to_h)
     end
 
     private
@@ -40,8 +40,7 @@ module SpeedyRspec
       def set_tracer
         TracePoint.new(*%i[call b_call]) do |tp|
           unless tp.path.index(@working_dir).nil?
-            file = tp.path
-            @dependency[file].add(@current_test)
+            @datamanager.add_dependency(tp.path, @current_test)
           end
         end
       end
