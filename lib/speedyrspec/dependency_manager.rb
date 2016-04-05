@@ -1,3 +1,5 @@
+require 'json'
+
 module SpeedyRspec
   class DependencyManagerFactory
     class << self
@@ -36,8 +38,8 @@ module SpeedyRspec
       @data[from].add(to)
     end
 
-    def get_dependencies(file)
-      @data[file]
+    def get_dependencies(from)
+      Array(@data[from]) || []
     end
 
     def finish
