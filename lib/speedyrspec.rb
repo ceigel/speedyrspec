@@ -4,7 +4,7 @@ require_relative 'speedyrspec/resolver'
 module SpeedyRspec
   class << self
     attr_accessor :trace_file
-    attr_accessor :manager_type
+    attr_accessor :trace_type
     def configure
       yield self
     end
