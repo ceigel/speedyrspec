@@ -1,7 +1,6 @@
 module SpeedyRspec
   class Resolver
     def initialize
-      raise "Trace file '#{SpeedyRspec.trace_file}' doesn't exist. Have you run rake speedyrspec:collect?" unless File.exists?(SpeedyRspec.trace_file)
       @dependencies = DependencyManagerFactory.load_dependencies
     end
 

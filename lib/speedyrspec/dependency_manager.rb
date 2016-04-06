@@ -1,22 +1,35 @@
 require 'json'
+require 'open-uri'
+require_relative 'json_writers'
 
 module SpeedyRspec
   class DependencyManagerFactory
     class << self
       def new_dependencies
-        build_manager.tap { |manager| manager.new_dependencies}
+        build_manager(build_traces_writer).tap { |manager| manager.new_dependencies}
       end
 
       def load_dependencies
-        build_manager.tap { |manager| manager.load_dependencies}
+        build_manager(build_traces_writer).tap { |manager| manager.load_dependencies}
       end
 
       private
 
-      def build_manager
+      def build_traces_writer
+        case SpeedyRspec.output[:type]
+        when :file
+          JsonFileWriter.new
+        when :s3
+          JsonS3Writer.new
+        else
+          JsonFileWriter.new
+        end
+      end
+
+      def build_manager(file_writer)
         case SpeedyRspec.trace_type
         when :json
-          JsonDependencyManager.new
+          JsonDependencyManager.new(file_writer)
         else
           fail 'Only :json trace type is allowed'
         end
@@ -25,13 +38,17 @@ module SpeedyRspec
   end
 
   class JsonDependencyManager
+    def initialize(data_writer)
+      @writer = data_writer
+    end
     def new_dependencies
       @data = Hash.new{|h, k| h[k] = Set.new}
     end
 
     def load_dependencies
-      traces = File.read(SpeedyRspec.trace_file)
-      @data = JSON.parse(traces)
+      open(SpeedyRspec.trace_file) do |f|
+        @data = JSON.parse(f.read)
+      end
     end
 
     def add_dependency(from, to)
@@ -43,7 +60,7 @@ module SpeedyRspec
     end
 
     def finish
-      File.write(SpeedyRspec.trace_file, to_json)
+      @writer.write(to_json)
     end
 
     private
