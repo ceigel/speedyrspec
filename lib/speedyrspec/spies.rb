@@ -33,13 +33,14 @@ module SpeedyRspec
         fp = example.metadata[:file_path]
         path = example.metadata[:absolute_file_path]
         @working_dir = path[0, path.index(fp[1, fp.length])]
-        @working_dir_length = @working_dir.length
+        @wd_path = Pathname.new(@working_dir)
       end
 
       def set_tracer
         TracePoint.new(*%i[call b_call]) do |tp|
           unless tp.path.index(@working_dir).nil?
-            @datamanager.add_dependency(tp.path, @current_test)
+            tp_path = Pathname.new(tp.path)
+            @datamanager.add_dependency(tp_path.relative_path_from(@wd_path).to_s, @current_test)
           end
         end
       end
