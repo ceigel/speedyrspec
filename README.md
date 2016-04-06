@@ -52,3 +52,26 @@ following steps should be followed.
   ```bash
   rake speedyrspec:run:git
   ```
+
+## Recommended setup
+
+It is recommended to periodically collect traces. This can be done weekly in a
+test run followed by a commit of the traces file into your repository. This is
+possible with a configuration similar to the following:
+
+```ruby
+SpeedyRspec.configure do |config|
+  config.trace_file = 'speedy_traces.json'
+end
+```
+
+Another option is to write the traces file in S3 bucket set-up for static
+hosting. At trace-collection the AWS access credentials will have to be stored
+in the environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. Ex:
+
+```ruby
+SpeedyRspec.configure do |config|
+  config.output = {type: :s3, bucket: 'speedyrspec', name: 'shore_payment_service_traces.json'}
+  config.trace_file = 'https://s3-eu-west-1.amazonaws.com/speedyrspec/shore_payment_service_traces.json'
+end
+```
