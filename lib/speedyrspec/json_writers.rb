@@ -1,4 +1,4 @@
-require 'aws-sdk'
+require 'aws-sdk-resources'
 
 class JsonFileWriter
   def write(json)
