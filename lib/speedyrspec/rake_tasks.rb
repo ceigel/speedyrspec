@@ -1,6 +1,9 @@
 require 'rake/tasklib'
 require 'rspec/core/rake_task'
 
+ENV['RACK_ENV'] = 'test'
+ENV['RAILS_ENV'] = 'test'
+
 def git_modified_files
   status = open('|git status -s').readlines
   status.map(&:strip).flat_map{|s| s.split.drop(1)}.tap do |files|
@@ -23,6 +26,8 @@ def show_files_to_run(files_to_test)
   files = SpeedyRspec::Resolver.new.get_tests(files_to_test)
   puts "Files to run: \n\t#{files.join("\n\t")}"
 end
+
+Rake::Task.define_task(:environment)
 
 desc 'run tests and collect trace information'
 RSpec::Core::RakeTask.new('speedyrspec:collect') do |t, args|
