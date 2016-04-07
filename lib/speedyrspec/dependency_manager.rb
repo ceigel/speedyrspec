@@ -27,12 +27,7 @@ module SpeedyRspec
       end
 
       def build_manager(file_writer)
-        case SpeedyRspec.trace_type
-        when :json
-          JsonDependencyManager.new(file_writer)
-        else
-          fail 'Only :json trace type is allowed'
-        end
+        JsonDependencyManager.new(file_writer)
       end
     end
   end
