@@ -56,11 +56,14 @@ following steps should be followed.
 ## Rake tasks
 
 SppedyRspec exposes the following rake tasks:
-rake speedyrspec:collect   # run tests and collect trace information
-rake speedyrspec:run       # run tests that exercise specific code
-rake speedyrspec:run:git   # run tests that exercise modiffied git files
-rake speedyrspec:show      # show which files will be run for given files
-rake speedyrspec:show:git  # show which files will be run for modffied git files
+
+```bash
+rake speedyrspec:collect   # run tests and collect trace information.
+rake speedyrspec:run       # run tests that exercise code in files given as parameters.
+rake speedyrspec:run:git   # run tests that exercise code in modiffied git files.
+rake speedyrspec:show      # show which files should be run for given tests.
+rake speedyrspec:show:git  # show which files should be run for modffied git files.
+```
 
 
 ## Recommended setup
