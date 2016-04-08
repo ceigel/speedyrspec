@@ -10,7 +10,7 @@ module SpeedyRspec
       end
 
       def load_dependencies
-        build_manager(build_traces_writer).tap { |manager| manager.load_dependencies}
+        build_manager(nil).tap { |manager| manager.load_dependencies}
       end
 
       private
@@ -36,6 +36,7 @@ module SpeedyRspec
     def initialize(data_writer)
       @writer = data_writer
     end
+
     def new_dependencies
       @data = Hash.new{|h, k| h[k] = Set.new}
     end
