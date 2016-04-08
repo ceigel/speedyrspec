@@ -40,7 +40,8 @@ module SpeedyRspec
         TracePoint.new(*%i[call b_call]) do |tp|
           unless tp.path.index(@working_dir).nil?
             tp_path = Pathname.new(tp.path)
-            @datamanager.add_dependency(tp_path.relative_path_from(@wd_path).to_s, @current_test)
+            rel_path = tp_path.relative_path_from(@wd_path).to_s
+            @datamanager.add_dependency(rel_path, @current_test) unless @current_test.index(rel_path)
           end
         end
       end
