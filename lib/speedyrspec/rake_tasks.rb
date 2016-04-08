@@ -29,7 +29,7 @@ end
 
 Rake::Task.define_task(:environment)
 
-desc 'run tests and collect trace information'
+desc 'run tests and collect trace information.'
 RSpec::Core::RakeTask.new('speedyrspec:collect' => :environment) do |t, args|
   t.rspec_opts ||= []
   specfiles = ARGV.drop(1)
@@ -42,26 +42,25 @@ RSpec::Core::RakeTask.new('speedyrspec:collect' => :environment) do |t, args|
   t.rspec_opts << '--require speedyrspec/rspec_config'
 end
 
-desc 'run tests that exercise specific code'
+desc 'run tests that exercise code in files given as parameters.'
 RSpec::Core::RakeTask.new('speedyrspec:run' => :environment) do |t, args|
   files_to_test = files_from_args(args)
   set_files_to_run(t, files_to_test)
 end
 
-
-desc 'run tests that exercise modiffied git files.'
+desc 'run tests that exercise code in modiffied git files.'
 RSpec::Core::RakeTask.new('speedyrspec:run:git' => :environment) do |t, args|
   files_to_test = git_modified_files
   set_files_to_run(t, files_to_test)
 end
 
-desc 'show which files will be run for given files.'
+desc 'show which files should be run for given tests.'
 task 'speedyrspec:show' => :environment do |t, args|
   files_to_test = files_from_args(args)
   show_files_to_run(files_to_test)
 end
 
-desc 'show which files will be run for modffied git files.'
+desc 'show which files should be run for modffied git files.'
 task 'speedyrspec:show:git' => :environment do |t, args|
   files_to_test = git_modified_files
   show_files_to_run(files_to_test)

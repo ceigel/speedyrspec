@@ -53,6 +53,16 @@ following steps should be followed.
   rake speedyrspec:run:git
   ```
 
+## Rake tasks
+
+SppedyRspec exposes the following rake tasks:
+rake speedyrspec:collect   # run tests and collect trace information
+rake speedyrspec:run       # run tests that exercise specific code
+rake speedyrspec:run:git   # run tests that exercise modiffied git files
+rake speedyrspec:show      # show which files will be run for given files
+rake speedyrspec:show:git  # show which files will be run for modffied git files
+
+
 ## Recommended setup
 
 It is recommended to periodically collect traces. This can be done weekly in a
