@@ -8,13 +8,14 @@ Gem::Specification.new do |s|
   s.description = 'Compute the dependency list in a certain project and use this information for computing the minimum list of tests to run for a change.'
   s.authors     = ["Cristian Eigel"]
   s.email       = 'eigelc@gmail.com'
-  s.files       =  Dir['{lib,spec}/**/*.rb'] + ['README.md', 'Rakefile']
+  s.files       = Dir['{lib,spec}/**/*.rb'] + ['README.md', 'Rakefile']
   s.test_files  = Dir['spec/**/*.rb']
+  s.homepage    = 'https://github.com/ceigel/speedyrspec'
 
   s.require_paths = ['lib']
   s.license       = 'MIT'
 
-  s.add_runtime_dependency 'rspec', '>= 3.0'
+  s.add_runtime_dependency 'rspec', '~> 3.0'
   s.add_runtime_dependency 'aws-sdk-resources', '~> 2'
 
   s.add_development_dependency 'pry-byebug', '~> 3.3'
